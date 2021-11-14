@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        };
+        body{
+            width: 90vw;
+            height: 90vh;
+            margin: 0 auto;
+        }
+        .gamed{
+
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 20vw 20vw 20vw;
+            grid-template-rows:  20vw 20vw 20vw;
+        }
+        .game {
+          border: 1px solid black;
+            display: block;
+            position: relative;
+            
+        }
+
+        [data-type="X"]::before{
+            content: "";
+            display: block;
+            position: absolute;
+            border: 1px solid black;
+            width: 100%
+        };
+     
+        [data-type=0]::before{
+            content: " ";
+            display: block;
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            background-color: brown;
+            border-radius: 50%;
+        }   
+    </style>
+</head>
+<body>
+    <div class="gamed">
+        <div id="0" class="game"></div>
+        <div id="1" class="game"></div>
+        <div id=2 class="game"></div>
+        <div id="3" class="game"></div>
+        <div id="4" class="game"></div>
+        <div id=5 class="game"></div>
+        <div id="6" class="game"></div>
+        <div id="7" class="game"></div>
+        <div id=8 class="game"></div>
+    </div>
+<script>
+    let round = false;
+    let data;
+    const result = [ "","","",
+                     "","","",
+                     "","",""
+                              ];
+    const win = [];
+    const lose = [];
+    const combintations = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+]
+
+ const box = [...document.querySelectorAll(".game")];
+ box.map((e, index) => {
+   e.addEventListener("click", klik, false);
+  
+      
+    
+ });
+ function klik(event, index){
+     if(event.target.hasAttribute("data-type")) return;
+    round = !round;
+    round ? data = "X" : data = "0";
+    event.target.setAttribute("data-type", data);
+    
+    let a = event.target.dataset.type;
+    let b = event.target.id;
+    result[b] = event.target.id;
+        if(event.target.dataset.type === "X"){
+        win.push(Number(b))
+        
+    }else{
+        lose.push(Number(b))
+}
+    console.log(lose)
+    
+
+    // const [d,e,f] = combintations;
+
+    // result[b] = event.target.dataset.type;
+    // if(event.target.dataset.type === "X"){
+    //     win.push(b)
+        
+    // }else{
+    //     lose.push(b)
+    // }
+    games() 
+}
+function games(e){
+    for(const key of combintations){
+        for(let i = 0; i <=3; i++){
+            if(key.includes(win[0]) && key.includes(win[1]) && key.includes(win[2])){
+                console.log("win")
+                
+            }else if(key.includes(lose[0]) && key.includes(lose[1]) && key.includes(lose[2])){
+                console.log("win")
+                break;
+            }
+        }
+    }
+}
+games()
+    // console.log(result)
+    
+
+ 
+</script>
+</body>
+</html>
