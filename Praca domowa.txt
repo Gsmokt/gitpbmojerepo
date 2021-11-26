@@ -1,0 +1,155 @@
+1
+
+String.prototype.reverse = function(){
+    return [...this].reverse().join("")
+  }
+
+console.log("Hello world".reverse())
+
+2
+
+Number.prototype.reverse = function(){
+  return parseFloat(this.toString().split('').reverse().join('')) * Math.sign(this)
+}
+
+Number.prototype.reverse = function(){
+    return this*(-1)
+  }
+
+console.log((-123).reverse())
+
+3
+
+const someObject = require("./Data.json")
+class Obj {
+    constructor(index, id, cost, detailsOfPayent){
+        this.index = index,
+        this.id = id,
+        this.cost = cost,
+        this.detailsOfPayent = detailsOfPayent
+    } 
+}
+const objectMap = someObject.map((e,i,array) => {
+    return new Obj(e.index,e._id,e.cost,e.detailsOfPayent,e.Type,e.company,e.date)
+})
+class Ob{
+    constructor(){
+        this.moneySpentIn2014 = this.sum(),
+        this.companyEarning = this.companY(),
+        this.transactionType = this.transaction(),
+        this.monthSpending = this.monthDate(),
+        this.daysSpending = this.daysDate()
+    }
+    sum() {
+        const moneySpend = objectMap.filter( e => e.detailsOfPayent.date.includes('2014')).map((e) => {
+            return Number(e.cost)
+        }).reduce((prev,cur) => prev + cur)
+          return moneySpend
+    }
+    companY() {
+        const comp = {}
+        const array=[]
+        const companyList = objectMap.map((e) => {
+          if(!array.includes(e.detailsOfPayent.company)){
+              array.push(e.detailsOfPayent.company)
+          }
+        })
+        const arrayCheck = array.map((e) => {
+            return name(e)
+          })
+        
+          function name(e){
+            let result = 0;
+            for(let i=0; i < objectMap.length; i++){
+                if(objectMap[i].detailsOfPayent.company == e){
+                    result += Number(objectMap[i].cost)
+                }
+            }
+            return result
+        }
+        for(let i= 0; i < array.length; i++){
+            comp[array[i]] = arrayCheck[i]
+         }
+         return comp
+        }
+    transaction() {
+        const transaction = {}
+        const array=[]
+        const transType = objectMap.map((e) => {
+          if(!array.includes(e.detailsOfPayent.Type)){
+              array.push(e.detailsOfPayent.Type)
+          }
+        })
+        function nam(e){
+            let result = 0;
+            for(let i=0; i < objectMap.length; i++){
+                if(objectMap[i].detailsOfPayent.Type == e){
+                    result += Number(objectMap[i].cost)
+                }
+            }
+            return result
+        }
+        
+        const arrayCheck = array.map((e) => {
+          return nam(e)
+        })
+        for(let i= 0; i < array.length; i++){
+            transaction[array[i]] = arrayCheck[i]
+        }
+        return transaction
+        } 
+    monthDate() {
+        const valueMonthSpending = {}
+        const array = []
+    const months = objectMap.map((e) => {
+        if(!array.includes(e.detailsOfPayent.date.slice(3,5)))
+      array.push( Number(e.detailsOfPayent.date.slice(3,5))) 
+    })
+    array.sort((a,b)=> a-b)
+    const arrayCheck = array.map((e) => {
+      return values(e)
+    })
+    function values(e) {
+       let result = 0;
+        for(let j = 0; j < objectMap.length; j++){
+            if(objectMap[j].detailsOfPayent.date.slice(3,5) == e){
+                result += Number(objectMap[j].cost)
+            }
+        }
+        return result
+    }
+    for(let i = 0; i < array.length; i++){
+        valueMonthSpending[array[i]] = arrayCheck[i]
+    }
+    return valueMonthSpending
+    }
+    daysDate() {
+        const valueDaysSpending = {}
+        const array = []
+    const days = objectMap.map((e) => {
+        if(!array.includes(e.detailsOfPayent.date.slice(0,2)))
+      array.push( Number(e.detailsOfPayent.date.slice(0,2)))
+      
+    })
+    array.sort((a,b) =>a-b)
+    const arrayCheck = array.map((e) => {
+        return values(e)
+      })
+      function values(e) {
+         let result = 0;
+          for(let j = 0; j < objectMap.length; j++){
+              if(objectMap[j].detailsOfPayent.date.slice(0,2) == e){
+                  result += Number(objectMap[j].cost)
+              }
+          }
+          return result
+      }
+      for(let i = 0; i < array.length; i++){
+        valueDaysSpending[array[i]] = arrayCheck[i]
+    }
+    return valueDaysSpending
+    } 
+}
+
+const newOb = new Ob();
+console.log(newOb)
